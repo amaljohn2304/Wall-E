@@ -35,12 +35,14 @@ const Paper = (props) => {
     const onChangeSearch = query => {
         console.log(query);
         setSearchQuery(query)
-        getImages(page, searchQuery)
+        setpage(1)
+        pages = 1;
+        getImages(page, query)
     };
 
 
     async function getImages(pageno = 1, srch = '') {
-        console.log(srch);
+        console.log(srch, "looking");
         setpage(pageno);
         const url = `https://pexelsdimasv1.p.rapidapi.com/v1/curated?per_page=5&page=${pageno}`;
 
@@ -80,9 +82,11 @@ const Paper = (props) => {
                 onChangeText={onChangeSearch}
                 value={searchQuery}
                 platform="ios"
-
+                containerStyle={{ backgroundColor: `${main}`, borderTopWidth: 0, borderBottomWidth: 0 }}
                 onClear={() => {
-                    searchQuery('');
+                    setSearchQuery('');
+                    setpage(1);
+                    pages = 1;
                     getImages(page, '');
                 }}
 
@@ -91,7 +95,7 @@ const Paper = (props) => {
                 {
                     data.map((items, index) => (
                         <View key={index} style={{ padding: 10, paddingHorizontal: 10, borderRadius: 20, backgroundColor: "white", margin: 10, width: 350, elevation: 10 }}>
-                            <Thumb image={items.url} />
+                            <Thumb image={items.src.portrait} />
                             <Info artist={items.photographer} follow={items.photographer_url} ></Info>
                         </View>
                     ))

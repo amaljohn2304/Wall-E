@@ -18,7 +18,7 @@ const Header = () => {
             padding: 15, borderBottomLeftRadius: 20, borderBottomRightRadius: 20,
             width: "100%"
         }}>
-            <Text style={{ fontWeight: 'bold', fontSize: 30 }}>Wall-E</Text>
+            <Text style={{ fontWeight: 'bold', fontSize: 30, top: 10, paddingBottom: 10 }}>Wall-E</Text>
         </View>
     );
 }
