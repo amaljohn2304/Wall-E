@@ -4,7 +4,10 @@ import { View, StyleSheet, Text, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { Linking } from "react-native";
 
-
+const redirect = (link) => {
+    Linking.openURL("https://images.pexels.com/photos/12017866/pexels-photo-12017866.jpeg?cs=srgb&dl=pexels-vasilis-karkalas-12017866.jpg&fm=jpg")
+}
+//https://images.pexels.com/photos/12017866/pexels-photo-12017866.jpeg?cs=srgb&dl=pexels-vasilis-karkalas-12017866.jpg&fm=jpg
 var main = "#F4F9F9";
 var sub = "#CCF2F4";
 var accent = "#A4EBF3";
@@ -18,11 +21,17 @@ const Paper = (props) => {
             url: "https://www.pexels.com/photo/woman-standing-with-hands-in-her-pockets-12167579/",
             photographer: "Ekaterina",
             photographer_url: "https://www.pexels.com/@pit0chka",
+            src: {
+                portrait: "https://images.pexels.com/photos/189349/pexels-photo-189349.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800"
+            }
         },
         {
             url: "https://images.unsplash.com/photo-1653509517330-a5dbac11243f?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170",
             photographer: "Ekaterina",
             photographer_url: "https://www.pexels.com/@pit0chka",
+            src: {
+                portrait: "https://images.pexels.com/photos/189349/pexels-photo-189349.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800"
+            }
         },
 
     ]
@@ -95,8 +104,10 @@ const Paper = (props) => {
                 {
                     data.map((items, index) => (
                         <View key={index} style={{ padding: 10, paddingHorizontal: 10, borderRadius: 20, backgroundColor: "white", margin: 10, width: 350, elevation: 10 }}>
+
                             <Thumb image={items.src.portrait} />
-                            <Info artist={items.photographer} follow={items.photographer_url} ></Info>
+                            <Info artist={items.photographer} follow={items.photographer_url} url={items.src.portrait}></Info>
+
                         </View>
                     ))
                 }
@@ -130,6 +141,7 @@ const Thumb = (props) => (
                     resizeMode: 'cover',
                 }}
             />
+
         </TouchableOpacity>
 
 
@@ -141,6 +153,12 @@ const Info = (props) => (
         <Text style={{ padding: 8 }}>By {props.artist}</Text>
         <TouchableOpacity style={{ backgroundColor: `${accent}`, padding: 8, paddingHorizontal: 20, borderRadius: 10, elevation: 2 }} onPress={() => Linking.openURL(props.follow)} >
             <Text>Follow</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{ backgroundColor: `${accent}`, padding: 2, borderRadius: 5, elevation: 2, width: 35, height: 35 }} onPress={() => Linking.openURL(props.url + "&dl")} >
+            <Image
+                source={require('../assets/download.png')}
+                style={{ position: 'absolute', zIndex: 10, width: 30, height: 30, alignSelf: 'center' }}
+            ></Image>
         </TouchableOpacity>
     </View>
 )
